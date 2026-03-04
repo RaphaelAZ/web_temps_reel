@@ -7,6 +7,31 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
+let previous = os.cpus();
+
+function getCpuUsage() {
+  const current = os.cpus();
+
+  let totalIdle = 0;
+  let totalTick = 0;
+
+  current.forEach((cpu, i) => {
+    const prevCpu = previous[i];
+
+    const idle = cpu.times.idle - prevCpu.times.idle;
+    const total =
+      Object.values(cpu.times).reduce((a, b) => a + b) -
+      Object.values(prevCpu.times).reduce((a, b) => a + b);
+
+    totalIdle += idle;
+    totalTick += total;
+  });
+
+  previous = current;
+
+  return 100 - Math.floor((totalIdle / totalTick) * 100);
+}
+
 const clients = new Set();
 
 app.get('/events', (req, res) => {
@@ -29,7 +54,11 @@ setInterval(() => {
   });
 
   for (const client of clients) {
-    client.write(`event: metrics\ndata: ${payload}\n\n`);
+    if(getCpuUsage() > 50) {
+        client.write(`event: alert\ndata: ${payload}\n\n`);
+    } else {
+        client.write(`event: metrics\ndata: ${payload}\n\n`);
+    }
   }
 }, 2000);
 

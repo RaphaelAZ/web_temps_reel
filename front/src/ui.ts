@@ -40,7 +40,22 @@ export function updateMetrics(avg: number, usages: number[]): void {
 
 const statusEl = $('sse-status');
 
-// ─── Shrek Easter egg (F12) ─────────────────────────────────────────────────
+const alertOverlay = $('alert-overlay');
+const alertMessage = $('alert-message');
+
+($('alert-close') as HTMLButtonElement).addEventListener('click', () => {
+  alertOverlay.classList.add('hidden');
+});
+
+export function showAlert(message: string): void {
+  alertMessage.textContent = message;
+  alertOverlay.classList.remove('hidden');
+}
+
+export function hideAlert(): void {
+  alertOverlay.classList.add('hidden');
+}
+
 const shrekOverlay = $('shrek-overlay');
 const shrekGif     = $('shrek-gif') as HTMLElement;
 
@@ -49,9 +64,8 @@ document.addEventListener('keydown', (e: KeyboardEvent) => {
     e.preventDefault();
     const isHidden = shrekOverlay.classList.toggle('hidden');
     if (!isHidden) {
-      // Restart animation each time the overlay opens
       shrekGif.style.animation = 'none';
-      shrekGif.offsetHeight; // force reflow
+      shrekGif.offsetHeight;
       shrekGif.style.animation = '';
     }
   }

@@ -1,6 +1,6 @@
 ﻿import type { CpuInfo, CpuTimes, Payload } from './model';
 import { initCharts, pushCharts } from './charts';
-import { initUI, updateMetrics, setStatus } from './ui';
+import { initUI, updateMetrics, setStatus, showAlert, hideAlert } from './ui';
 import './style.css';
 
 const SSE_URL = 'http://localhost:3000/events';
@@ -49,7 +49,18 @@ function connect() {
   es.addEventListener('connected', () => setStatus('connected'));
 
   es.addEventListener('metrics', (e: MessageEvent) => {
-    try { onPayload(JSON.parse(e.data)); }
+    try {
+      onPayload(JSON.parse(e.data));
+      hideAlert();
+    }
+    catch (err) { console.error('Parse error', err); }
+  });
+
+  es.addEventListener('alert', (e: MessageEvent) => {
+    try {
+      onPayload(JSON.parse(e.data));
+      showAlert('LE CPU EST EN TRAIN DE FUMER!');
+    }
     catch (err) { console.error('Parse error', err); }
   });
 

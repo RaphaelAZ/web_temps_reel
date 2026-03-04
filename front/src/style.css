@@ -61,6 +61,38 @@ body {
   gap: 1rem;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-connect {
+  padding: 0.35rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-connect:hover {
+  background: var(--border);
+}
+
+.btn-connect[data-connected="true"] {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-connect[data-connected="false"] {
+  border-color: var(--ok);
+  color: var(--ok);
+}
+
 .uptime {
   color: var(--muted);
   font-size: 0.82rem;

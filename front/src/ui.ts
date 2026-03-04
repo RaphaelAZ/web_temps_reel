@@ -71,12 +71,12 @@ document.addEventListener('keydown', (e: KeyboardEvent) => {
   }
 });
 
-export function setStatus(state: 'connected' | 'connecting' | 'error'): void {
+export function setStatus(state: 'connected' | 'connecting' | 'error' | 'disconnected'): void {
   const dot = document.createElement('span');
   dot.className = 'status-dot';
   statusEl.className = `sse-status ${state}`;
   statusEl.textContent = '';
   statusEl.appendChild(dot);
-  const labels = { connected: 'Connecté', connecting: 'Connexion…', error: 'Déconnecté' };
+  const labels = { connected: 'Connecté', connecting: 'Connexion…', error: 'Déconnecté', disconnected: 'Déconnecté' };
   statusEl.append(` ${labels[state]}`);
 }

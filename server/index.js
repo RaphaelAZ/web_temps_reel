@@ -55,8 +55,10 @@ setInterval(() => {
 
   for (const client of clients) {
     if(getCpuUsage() > 50) {
+        console.log('Alert: CPU usage above 50%');
         client.write(`event: alert\ndata: ${payload}\n\n`);
     } else {
+        console.log('Metrics: CPU usage normal');
         client.write(`event: metrics\ndata: ${payload}\n\n`);
     }
   }

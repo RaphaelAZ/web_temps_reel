@@ -4,10 +4,8 @@ import { hideAlert, initUI, setStatus, showAlert, updateMetrics } from "./ui";
 
 export class EventCpu {
     private SSE_URL = 'http://localhost:3000/events';
-    private es: EventSource;
-    constructor() {
-        this.es = new EventSource(this.SSE_URL);
-    }
+    private es: EventSource | undefined = undefined;
+    constructor() {}
 
     connect() {
         this.es = new EventSource(this.SSE_URL);
@@ -15,24 +13,26 @@ export class EventCpu {
         this.es.addEventListener('connected', () => setStatus('connected'));
 
         this.es.addEventListener('metrics', (e: MessageEvent) => {
+            console.log('METRICS RECEIVED');
             try {
-            onPayload(JSON.parse(e.data));
-            hideAlert();
+                onPayload(JSON.parse(e.data));
+                hideAlert();
             }
             catch (err) { console.error('Parse error', err); }
         });
 
         this.es.addEventListener('alert', (e: MessageEvent) => {
+            console.log('ALERT RECEIVED');
             try {
-            onPayload(JSON.parse(e.data));
-            showAlert('LE CPU EST EN TRAIN DE FUMER!');
+                onPayload(JSON.parse(e.data));
+                showAlert('LE CPU EST EN TRAIN DE FUMER!');
             }
             catch (err) { console.error('Parse error', err); }
         });
 
         this.es.onerror = () => {
             setStatus('error');
-            this.es.close();
+            this.es!.close();
             setTimeout(() => this.connect(), 3000);
         };
     }
@@ -40,7 +40,7 @@ export class EventCpu {
     disconnect() {
         setStatus('disconnected');
         previousCpus = null;
-        this.es.close();
+        this.es!.close();
     }
 }
 

@@ -5,6 +5,9 @@ const eventCpu = new EventCpu();
 const btn = document.getElementById('btn-connect') as HTMLButtonElement;
 
 document.addEventListener('DOMContentLoaded', () => {
+  btn.dataset.connected = 'false';
+  btn.textContent = 'Connecter';
+
   btn.addEventListener('click', () => {
     const connected = btn.dataset.connected === 'true';
     if (connected) {

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CPU Monitor</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-left">
+        <span class="header-icon">&#9655;</span>
+        <h1>CPU Monitor</h1>
+      </div>
+      <div class="header-right">
+        <span id="sse-status" class="sse-status connecting">
+          <span class="status-dot"></span>
+          Connexion…
+        </span>
+      </div>
+    </header>
+
+    <section class="cards-grid" id="cpu-info">
+      <div class="card card--wide">
+        <div class="card-title">Modèle</div>
+        <div class="card-value card-value--sm" id="cpu-model">—</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Fréquence</div>
+        <div class="card-value" id="cpu-speed">—</div>
+        <div class="card-unit">MHz</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Cœurs logiques</div>
+        <div class="card-value" id="cpu-cores">—</div>
+      </div>
+      <div class="card">
+        <div class="card-title">CPU moyen</div>
+        <div class="card-value" id="val-avg">—</div>
+        <div class="card-unit">%</div>
+        <div class="card-bar-wrap"><div class="card-bar" id="bar-avg"></div></div>
+      </div>
+    </section>
+
+    <div id="cores-grid" class="cards-grid"></div>
+
+    <section class="charts-grid">
+      <div class="chart-card">
+        <h2>CPU moyen (%)</h2>
+        <canvas id="chart-avg"></canvas>
+      </div>
+      <div class="chart-card">
+        <h2>CPU par cœur (%)</h2>
+        <canvas id="chart-cores"></canvas>
+      </div>
+    </section>
+
+    <!-- Shrek Easter egg -->
+    <div id="shrek-overlay" class="shrek-overlay hidden">
+      <img id="shrek-gif" src="/shrekdam.gif" alt="Shrek" />
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

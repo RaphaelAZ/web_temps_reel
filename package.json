@@ -1,0 +1,17 @@
+{
+  "name": "dashboard_monitoring",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:front\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:front": "npm --prefix front run dev"
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

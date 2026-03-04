@@ -1,7 +1,15 @@
 {
-  "name": "dashboard_monitoring",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://github.com/RaphaelAZ/dashboard_monitoring#readme",
+  "bugs": {
+    "url": "https://github.com/RaphaelAZ/dashboard_monitoring/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaphaelAZ/dashboard_monitoring.git"
+  },
   "license": "ISC",
   "author": "",
   "type": "commonjs",
@@ -13,5 +21,6 @@
   },
   "dependencies": {
     "concurrently": "^9.2.1"
-  }
+  },
+  "devDependencies": {}
 }

@@ -1,23 +1,8 @@
-﻿import './style.css';
-import { EventCpu } from './eventCpu';
+import './style.css';
+import { buildTemplate } from './ui';
+import { registerEvents } from './events';
 
-const eventCpu = new EventCpu();
-const btn = document.getElementById('btn-connect') as HTMLButtonElement;
+buildTemplate();
+registerEvents();
 
-document.addEventListener('DOMContentLoaded', () => {
-  btn.dataset.connected = 'false';
-  btn.textContent = 'Connecter';
-
-  btn.addEventListener('click', () => {
-    const connected = btn.dataset.connected === 'true';
-    if (connected) {
-      eventCpu.disconnect();
-      btn.dataset.connected = 'false';
-      btn.textContent = 'Connecter';
-    } else {
-      eventCpu.connect();
-      btn.dataset.connected = 'true';
-      btn.textContent = 'Déconnecter';
-    }
-  });
-});
+export {};
